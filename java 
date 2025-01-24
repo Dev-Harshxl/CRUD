@@ -138,3 +138,62 @@ public ResponseEntity<items> updateItem(
 }
 
 
+@PutMapping("/{id}")
+public ResponseEntity<items> updateItem(
+    @PathVariable Long id,
+    @RequestParam("title") String title,
+    @RequestParam("description") String description,
+    @RequestParam(value = "image", required = false) MultipartFile image) {
+    try {
+        // Retrieve the existing item
+        items existingItem = itemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found"));
+
+        // Update title and description
+        existingItem.setTitle(title);
+        existingItem.setDescription(description);
+
+        // Update image only if it's provided
+        if (image != null && !image.isEmpty()) {
+            existingItem.setImage(image.getBytes()); // Save raw binary data
+        }
+
+        // Save updated item
+        itemRepository.save(existingItem);
+        return ResponseEntity.ok(existingItem);
+
+    } catch (Exception e) {
+        e.printStackTrace(); // Log the error for debugging
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
+
+@PostMapping
+public ResponseEntity<items> createItem(
+    @RequestParam("title") String title,
+    @RequestParam("description") String description,
+    @RequestParam(value = "image", required = false) MultipartFile image) {
+    try {
+        // Create new item
+        items newItem = new items();
+
+        newItem.setTitle(title);
+        newItem.setDescription(description);
+
+        // Handle image if provided
+        if (image != null && !image.isEmpty()) {
+            newItem.setImage(image.getBytes()); // Save raw binary data
+        }
+
+        // Save the item to the database
+        itemRepository.save(newItem);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(newItem);
+
+    } catch (Exception e) {
+        e.printStackTrace(); // Log the error for debugging
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+    }
+}
+
+
