@@ -74,3 +74,28 @@ export const updateItem = async (id, item) => {
     throw error;
   }
 };
+
+
+
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const formData = new FormData();
+  formData.append("title", title);
+  formData.append("description", description);
+  if (image) {
+    formData.append("image", image);
+  }
+  console.log([...formData.entries()]); // Debugging step
+  try {
+    if (id) {
+      await updateItem(id, formData);
+    } else {
+      await createItem(formData);
+    }
+    navigate("/");
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  }
+};
+
+
