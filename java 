@@ -196,4 +196,45 @@ public ResponseEntity<items> createItem(
     }
 }
 
+const createItem = async (item) => {
+  const formData = new FormData();
+  formData.append('title', item.title);
+  formData.append('description', item.description);
+  if (item.image) {
+    formData.append('image', item.image); // Raw binary data
+  }
+
+  try {
+    const response = await axios.post(API_BASE_URL, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error creating item:', error);
+    throw error;
+  }
+};
+
+const updateItem = async (id, item) => {
+  const formData = new FormData();
+  formData.append('title', item.title);
+  formData.append('description', item.description);
+  if (item.image) {
+    formData.append('image', item.image); // Raw binary data
+  }
+
+  try {
+    const response = await axios.put(`${API_BASE_URL}/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error updating item:', error);
+    throw error;
+  }
+};
 
