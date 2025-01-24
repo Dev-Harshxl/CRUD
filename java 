@@ -9,3 +9,23 @@ INSERT INTO items (title, description, image) VALUES
 ('Title 8', 'Description for item 8', NULL),
 ('Title 9', 'Description for item 9', NULL),
 ('Title 10', 'Description for item 10', NULL);
+
+
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ItemsTable from './ItemsTable'; // Your table component
+import Feed from './Feed'; // Your Feed component (Create and Update form page)
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<ItemsTable />} />
+        <Route path="/feed" element={<Feed />} />
+        <Route path="/feed/:id" element={<Feed />} /> {/* For update with ID */}
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
