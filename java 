@@ -1,0 +1,11 @@
+INSERT INTO items (title, description, image) VALUES
+('Title 1', 'Description for item 1', NULL),
+('Title 2', 'Description for item 2', NULL),
+('Title 3', 'Description for item 3', NULL),
+('Title 4', 'Description for item 4', NULL),
+('Title 5', 'Description for item 5', NULL),
+('Title 6', 'Description for item 6', NULL),
+('Title 7', 'Description for item 7', NULL),
+('Title 8', 'Description for item 8', NULL),
+('Title 9', 'Description for item 9', NULL),
+('Title 10', 'Description for item 10', NULL);
