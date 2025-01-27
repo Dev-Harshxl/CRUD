@@ -22,8 +22,8 @@ public class items {
     @Column(nullable = false)
     private String description;
 
-    @Lob // Marks this field as a BLOB type
-    @Column
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
     private byte[] image;
 
     public items(String title, String description, byte[] image) {

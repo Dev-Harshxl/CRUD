@@ -32,32 +32,37 @@ const Feed = () => {
   }, [id]);
 
   const handleImageChange = (e) => {
+    console.log("Selected file:", e.target.files[0]);
     setImage(e.target.files[0]);
-  };
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log("Title:", title);
-    // console.log("Description:", description);
-
     const formData = new FormData();
-    formData.append("title", title || ""); // Ensure title isn't undefined
+    formData.append("title", title || "");
     formData.append("description", description || "");
     if (image) {
-      formData.append("image", image);
+        formData.append("image", image);
     }
+
+    for (let pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]); // Logs all fields and values
+    }
+
     try {
-      if (id) {
-        await updateItem(id, formData); 
-      } else {
-        await createItem(formData); 
-      }
-      navigate("/"); 
+        if (id) {
+            await updateItem(id, formData);
+        } else {
+            await createItem(formData);
+        }
+        navigate("/");
     } catch (error) {
-      console.error("Error submitting form:", error);
+        console.error("Error submitting form:", error);
     }
-  };
+};
+
 
   return (
     <div>

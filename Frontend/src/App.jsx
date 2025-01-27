@@ -10,7 +10,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="feed" element={<Feed />} />
-      </Routes>
+        <Route path="/feed/:id" element={<Feed />} /> {/* For update with ID */}
+        </Routes>
     </BrowserRouter>
   );
 };

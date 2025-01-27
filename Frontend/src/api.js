@@ -32,17 +32,16 @@ export const updateItem = (id, item) => {
 };
 export const createItem = async (formData) => {
   try {
-    const response = await fetch("http://localhost:8080/api/items", {
-      method: "POST",
-      body: formData,
+    const response = await axios.post("http://localhost:8080/api/items", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data", // Ensure this header is set
+      },
     });
-    if (!response.ok) {
-      throw new Error(`Failed to create item: ${response.statusText}`);
-    }
-    return await response.json();
+    return response.data;
   } catch (error) {
     console.error("Error in createItem API:", error);
     throw error;
   }
 };
+
 

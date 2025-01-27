@@ -60,8 +60,18 @@ const Home = () => {
               <td>{item.id}</td>
               <td>{item.title}</td>
               <td>{item.description}</td>
-              <td>{item.image ? <img src={item.image} alt="Item" width={50} height={50} /> : 'No Image'}</td>
               <td>
+  {item.image ? (
+    <img
+      src={item.image} // Base64 string already contains the correct MIME type
+      alt="Item"
+      width={50}
+      height={50}
+    />
+  ) : (
+    'No Image'
+  )}
+</td>              <td>
                 <Button variant="warning" onClick={() => navigate(`/feed/${item.id}`)}>
                   Update
                 </Button>{' '}
